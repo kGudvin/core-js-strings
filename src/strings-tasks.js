@@ -339,8 +339,22 @@ function countVowels(str) {
  *   isPalindrome('apple') => false
  *   isPalindrome('No lemon, no melon') => true
  */
-function isPalindrome(/* str */) {
-  throw new Error('Not implemented');
+function isPalindrome(str) {
+  let subStr = '';
+  for (let i = 0; i < str.length; i += 1) {
+    if (
+      (str.charCodeAt(i) >= 65 && str.charCodeAt(i) <= 90) ||
+      (str.charCodeAt(i) >= 97 && str.charCodeAt(i) <= 122)
+    ) {
+      subStr = subStr.concat(str[i]);
+    }
+  }
+  if (
+    subStr.toLowerCase() === subStr.split('').reverse().join('').toLowerCase()
+  ) {
+    return true;
+  }
+  return false;
 }
 
 /**
@@ -355,8 +369,21 @@ function isPalindrome(/* str */) {
  *   findLongestWord('A long and winding road') => 'winding'
  *   findLongestWord('No words here') => 'words'
  */
-function findLongestWord(/* sentence */) {
-  throw new Error('Not implemented');
+function findLongestWord(sentence) {
+  function findTheBiggestIndexInTheArray(arr) {
+    if (arr.length === 0) return -1;
+    let maxIndex = 0;
+    for (let i = 1; i < arr.length; i += 1) {
+      if (arr[i] > arr[maxIndex]) {
+        maxIndex = i;
+      }
+    }
+    return maxIndex;
+  }
+  const strArrayMaxIndex = findTheBiggestIndexInTheArray(
+    sentence.split(' ').map((el) => el.length)
+  );
+  return sentence.split(' ')[strArrayMaxIndex];
 }
 
 /**
@@ -369,8 +396,12 @@ function findLongestWord(/* sentence */) {
  *   reverseWords('Hello World') => 'olleH dlroW'
  *   reverseWords('The Quick Brown Fox') => 'ehT kciuQ nworB xoF'
  */
-function reverseWords(/* str */) {
-  throw new Error('Not implemented');
+function reverseWords(str) {
+  const reversedStr = str
+    .split(' ')
+    .map((el) => el.split('').reverse().join(''))
+    .join(' ');
+  return reversedStr;
 }
 
 /**
@@ -384,8 +415,16 @@ function reverseWords(/* str */) {
  *   invertCase('JavaScript is Fun') => 'jAVAsCRIPT IS fUN'
  *   invertCase('12345') => '12345'
  */
-function invertCase(/* str */) {
-  throw new Error('Not implemented');
+function invertCase(str) {
+  let result = '';
+  for (let i = 0; i < str.length; i += 1) {
+    if (str[i] === str[i].toLowerCase()) {
+      result = result.concat(str[i].toUpperCase());
+    } else {
+      result = result.concat(str[i].toLowerCase());
+    }
+  }
+  return result;
 }
 
 /**
@@ -401,8 +440,8 @@ function invertCase(/* str */) {
  *   getStringFromTemplate('John','Doe') => 'Hello, John Doe!'
  *   getStringFromTemplate('Chuck','Norris') => 'Hello, Chuck Norris!'
  */
-function getStringFromTemplate(/* firstName, lastName */) {
-  throw new Error('Not implemented');
+function getStringFromTemplate(firstName, lastName) {
+  return ''.concat('Hello, ', `${firstName} `, `${lastName}!`);
 }
 
 /**
@@ -415,8 +454,8 @@ function getStringFromTemplate(/* firstName, lastName */) {
  *   extractNameFromTemplate('Hello, John Doe!') => 'John Doe'
  *   extractNameFromTemplate('Hello, Chuck Norris!') => 'Chuck Norris'
  */
-function extractNameFromTemplate(/* value */) {
-  throw new Error('Not implemented');
+function extractNameFromTemplate(value) {
+  return value.substring(7, value.lastIndexOf('!'));
 }
 
 /**
@@ -430,8 +469,8 @@ function extractNameFromTemplate(/* value */) {
  *   unbracketTag('<span>') => 'span'
  *   unbracketTag('<a>') => 'a'
  */
-function unbracketTag(/* str */) {
-  throw new Error('Not implemented');
+function unbracketTag(str) {
+  return str.substring(1, str.length - 1);
 }
 
 /**
@@ -449,8 +488,8 @@ function unbracketTag(/* str */) {
  *   ],
  *   'info@gmail.com' => ['info@gmail.com']
  */
-function extractEmails(/* str */) {
-  throw new Error('Not implemented');
+function extractEmails(str) {
+  return str.split(';');
 }
 
 /**
@@ -469,8 +508,12 @@ function extractEmails(/* str */) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  return str.replace(/[a-zA-Z]/g, (char) => {
+    const code = char.charCodeAt(0);
+    const base = code >= 65 && code <= 90 ? 65 : 97;
+    return String.fromCharCode(((code - base + 13) % 26) + base);
+  });
 }
 
 /**
@@ -497,8 +540,62 @@ function encodeToRot13(/* str */) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(value) {
+  const allCards = [
+    'A♣',
+    '2♣',
+    '3♣',
+    '4♣',
+    '5♣',
+    '6♣',
+    '7♣',
+    '8♣',
+    '9♣',
+    '10♣',
+    'J♣',
+    'Q♣',
+    'K♣',
+    'A♦',
+    '2♦',
+    '3♦',
+    '4♦',
+    '5♦',
+    '6♦',
+    '7♦',
+    '8♦',
+    '9♦',
+    '10♦',
+    'J♦',
+    'Q♦',
+    'K♦',
+    'A♥',
+    '2♥',
+    '3♥',
+    '4♥',
+    '5♥',
+    '6♥',
+    '7♥',
+    '8♥',
+    '9♥',
+    '10♥',
+    'J♥',
+    'Q♥',
+    'K♥',
+    'A♠',
+    '2♠',
+    '3♠',
+    '4♠',
+    '5♠',
+    '6♠',
+    '7♠',
+    '8♠',
+    '9♠',
+    '10♠',
+    'J♠',
+    'Q♠',
+    'K♠',
+  ];
+  return allCards.indexOf(value);
 }
 
 module.exports = {
